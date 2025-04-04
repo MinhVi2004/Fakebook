@@ -1,0 +1,36 @@
+package com.example.backend.Entity;
+
+import jakarta.persistence.*;
+import lombok.*;
+
+@NoArgsConstructor
+@AllArgsConstructor
+@Entity
+@Table(name = "taikhoan")
+@Getter
+@Setter
+public class TaiKhoanEntity {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "MaTK")
+    private int MaTK;
+
+    @Column(name = "TenDangNhap")
+    private String tenDangNhap;
+    @Column(name = "MatKhau")
+    private String matKhau;
+    @Column(name = "HoTen")
+    private String hoTen;
+    @Column(name = "SoDienThoai")
+    private String soDienThoai;
+    @Column(name = "NgaySinh")
+    private String ngaySinh;
+    @Column(name = "Email", unique = true)
+    private String email;
+    @Column(name = "NgayTao")
+    private String ngayTao;
+    @Column(name = "TrangThai")
+    private String trangThai;
+    @Column(name = "PhanQuyen")
+    private String phanQuyen;
+} 

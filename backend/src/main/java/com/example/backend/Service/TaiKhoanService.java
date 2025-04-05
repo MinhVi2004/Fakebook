@@ -8,4 +8,5 @@ public interface TaiKhoanService {
     List<TaiKhoanDTO> getAllTaiKhoan();
     TaiKhoanDTO getTaiKhoanById(int maTK);
     TaiKhoanDTO checkLogin(String tenDangNhap, String matKhau);  
+    String checkSignin(String tenDangNhap, String soDienThoai);
 }

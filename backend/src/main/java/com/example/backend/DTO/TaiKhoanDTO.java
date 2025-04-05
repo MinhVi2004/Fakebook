@@ -12,9 +12,9 @@ public class TaiKhoanDTO {
     private String TenDangNhap;
     private String MatKhau;
     private String HoTen;
+    private String GioiTinh;
     private String SoDienThoai;
     private String NgaySinh;
-    private String Email;
     private String NgayTao;
     private String TrangThai;
     private String PhanQuyen;

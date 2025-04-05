@@ -10,9 +10,9 @@ public class TaiKhoanMapper {
         taiKhoanDTO.setTenDangNhap(taiKhoanEntity.getTenDangNhap());
         taiKhoanDTO.setMatKhau(taiKhoanEntity.getMatKhau());
         taiKhoanDTO.setHoTen(taiKhoanEntity.getHoTen());
+        taiKhoanDTO.setGioiTinh(taiKhoanEntity.getGioiTinh());
         taiKhoanDTO.setSoDienThoai(taiKhoanEntity.getSoDienThoai());
         taiKhoanDTO.setNgaySinh(taiKhoanEntity.getNgaySinh());
-        taiKhoanDTO.setEmail(taiKhoanEntity.getEmail());
         taiKhoanDTO.setNgayTao(taiKhoanEntity.getNgayTao());
         taiKhoanDTO.setTrangThai(taiKhoanEntity.getTrangThai());
         taiKhoanDTO.setPhanQuyen(taiKhoanEntity.getPhanQuyen());
@@ -25,9 +25,9 @@ public class TaiKhoanMapper {
         taiKhoanEntity.setTenDangNhap(taiKhoanDTO.getTenDangNhap());
         taiKhoanEntity.setMatKhau(taiKhoanDTO.getMatKhau());
         taiKhoanEntity.setHoTen(taiKhoanDTO.getHoTen());
+        taiKhoanEntity.setGioiTinh(taiKhoanDTO.getGioiTinh());
         taiKhoanEntity.setSoDienThoai(taiKhoanDTO.getSoDienThoai());
         taiKhoanEntity.setNgaySinh(taiKhoanDTO.getNgaySinh());
-        taiKhoanEntity.setEmail(taiKhoanDTO.getEmail());
         taiKhoanEntity.setNgayTao(taiKhoanDTO.getNgayTao());
         taiKhoanEntity.setTrangThai(taiKhoanDTO.getTrangThai());
         taiKhoanEntity.setPhanQuyen(taiKhoanDTO.getPhanQuyen());

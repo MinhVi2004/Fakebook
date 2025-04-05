@@ -9,5 +9,10 @@ import com.example.backend.Entity.TaiKhoanEntity;
 
 @Repository
 public interface TaiKhoanRepository extends JpaRepository<TaiKhoanEntity, Integer> {
-    Optional<TaiKhoanEntity> findByTenDangNhap(String tenDangNhap);
+     Optional<TaiKhoanEntity> findByTenDangNhap(String tenDangNhap);
+
+     boolean existsByTenDangNhap(String tenDangNhap);
+
+     boolean existsBySoDienThoai(String soDienThoai);
+
 }

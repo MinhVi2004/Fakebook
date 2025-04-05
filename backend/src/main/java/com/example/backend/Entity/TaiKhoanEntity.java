@@ -21,12 +21,12 @@ public class TaiKhoanEntity {
     private String matKhau;
     @Column(name = "HoTen")
     private String hoTen;
+    @Column(name = "GioiTinh")
+    private String gioiTinh;
     @Column(name = "SoDienThoai")
     private String soDienThoai;
     @Column(name = "NgaySinh")
     private String ngaySinh;
-    @Column(name = "Email", unique = true)
-    private String email;
     @Column(name = "NgayTao")
     private String ngayTao;
     @Column(name = "TrangThai")

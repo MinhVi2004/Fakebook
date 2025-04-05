@@ -1,15 +1,10 @@
-// navigation.js
-import { useNavigate } from "react-router-dom";
-const useNavigation = () => {
+import { useNavigate } from 'react-router-dom';
+
+export const useNavigation = () => {
      const navigate = useNavigate();
-
-     const goToLogin = () => navigate("/login");
-     const goToSignin = () => navigate("/signin");
-
-     return { 
-        goToLogin, 
-        goToSignin
-        };
+     
+    return {
+        goToSignin: () => navigate('/signin'),
+        goToLogin: () => navigate('/login'),
+    };
 };
-
-export default useNavigation;

@@ -1,42 +1,16 @@
-import React, { useState, useEffect } from "react";
-import DatePicker from "react-datepicker";
-import "react-datepicker/dist/react-datepicker.css";
+import React, { useState } from "react";
 import { toast } from "react-toastify";
 import { Link } from "react-router-dom";
 
 import "./../CSS/SigninCSS.css";
-import { validateFormSignin } from "./../Other/ValidateInput";
-import { useNavigation } from "../Other/Navigation";
-function Signin() {
-     const { goToLogin } = useNavigation();
-     const [hoTen, setHoTen] = useState(""); // Khai báo state cho username
-     const [ngaySinh, setNgaySinh] = useState(null);
-     const [gioiTinh, setGioiTinh] = useState(""); // Khai báo state cho password
-     const [soDienThoai, setSoDienThoai] = useState(""); // Khai báo state cho password
+import { useNavigation } from "../Other/Navigation"; // Import useNavigation từ file navigation.js
+function signin() {
+     const { goToSignup } = useNavigation();
      const [tenDangNhap, setTenDangNhap] = useState(""); // Khai báo state cho username
      const [matKhau, setMatKhau] = useState(""); // Khai báo state cho password
-     const [xacNhanMatKhau, setXacNhanMatKhau] = useState(""); // Khai báo state cho password
-     const handleSignin = async (e) => {
+     async function handlesignin(e) {
           e.preventDefault(); // Ngừng sự kiện mặc định (ngừng reload trang)
-          //? Kiểm tra dữ liệu đầu vào
-          const result = validateFormSignin(
-               hoTen,
-               ngaySinh,
-               gioiTinh,
-               soDienThoai,
-               tenDangNhap,
-               matKhau,
-               xacNhanMatKhau
-          );
-          if (result !== null) {
-               toast.error(result);
-               return;
-          }
-          const formattedDate = new Date(ngaySinh);
-          formattedDate.setDate(formattedDate.getDate() + 1); // Cộng thêm 1 ngày
-          const formattedDateWithAddedDay = formattedDate
-               .toISOString()
-               .slice(0, 10);
+
           const response = await fetch(
                "http://localhost:8080/api/fakebook/signin",
                {
@@ -44,151 +18,68 @@ function Signin() {
                     headers: {
                          "Content-Type": "application/json",
                     },
-                    body: JSON.stringify({
-                         tenDangNhap: tenDangNhap,
-                         matKhau: matKhau,
-                         hoTen: hoTen,
-                         gioiTinh: gioiTinh,
-                         soDienThoai: soDienThoai,
-                         ngaySinh: formattedDateWithAddedDay,
-                    }), // Gửi dữ liệu đăng nhập dưới dạng JSON
+                    body: JSON.stringify({ tenDangNhap, matKhau }), // Gửi dữ liệu đăng nhập dưới dạng JSON
                }
           );
+
           const data = await response.json();
           if (response.ok) {
-               toast.success("Đăng ký thành công");
-               goToLogin();
+               toast.success(`Xin chào ${data.data.hoTen}`);
+               localStorage.setItem("token", data.token);
           } else {
-               toast.error(data.message || "Đăng ký thất bại");
+               toast.error(data.message || "Đăng nhập thất bại");
           }
-     };
+     }
      return (
-          <div className="sigin">
-               <div className="sigin_name">
-                    <h1>facebook</h1>
+          <div className="d-flex justify-content-center align-items-center vw-100  vh-100">
+               <div className="m-4">
+                    <p className="text-primary fw-bold fs-1 ">facebook</p>
+                    <p className="text-gray-700 text-lg mt-2 fs-4">
+                         Connect with friends and the world around you on
+                         Facebook.
+                    </p>
                </div>
-               <form className="sigin_form">
-                    <div className="sigin_create">
-                         <h1 className="">Tạo tài khoản mới</h1>
-                         <p>Nhanh chóng và dễ dàng</p>
-                    </div>
-
-                    <div className="sigin_input  text-start">
-                         <div className="sigin_input">
-                              <input
-                                   type="text"
-                                   name="fullname"
-                                   placeholder="Họ tên"
-                                   value={hoTen}
-                                   onChange={(e) => setHoTen(e.target.value)}
-                              />
-                         </div>
-
-                         <div className="sigin_input text-start">
-                              <DatePicker
-                                   selected={ngaySinh}
-                                   onChange={(date) => setNgaySinh(date)}
-                                   dateFormat="dd/MM/yyyy"
-                                   showYearDropdown
-                                   scrollableYearDropdown
-                                   yearDropdownItemNumber={100}
-                                   maxDate={new Date()}
-                                   placeholderText="Chọn ngày sinh"
-                                   className="date-picker"
-                              />
-                         </div>
-
-                         <div className="sigin_input_info select_gender">
-                              <div className="sigin_input_selectGender">
-                                   <label>
-                                        Nam
-                                        <input
-                                             type="radio"
-                                             name="gender"
-                                             value="Nam"
-                                             checked={gioiTinh === "Nam"}
-                                             onChange={(e) =>
-                                                  setGioiTinh(e.target.value)
-                                             }
-                                        />
-                                   </label>
-                                   <label>
-                                        Nữ
-                                        <input
-                                             type="radio"
-                                             name="gender"
-                                             value="Nữ"
-                                             checked={gioiTinh === "Nữ"}
-                                             onChange={(e) =>
-                                                  setGioiTinh(e.target.value)
-                                             }
-                                        />
-                                   </label>
-                              </div>
-                         </div>
-                         <div>
-                              <input
-                                   type="text"
-                                   name="phone"
-                                   placeholder="Nhập số điện thoại"
-                                   value={soDienThoai}
-                                   onChange={(e) =>
-                                        setSoDienThoai(e.target.value)
-                                   }
-                              />
-                         </div>
-                         <div>
-                              <input
-                                   type="text"
-                                   name="username"
-                                   placeholder="Nhập tên đăng nhập"
-                                   value={tenDangNhap}
-                                   onChange={(e) =>
-                                        setTenDangNhap(e.target.value)
-                                   }
-                              />
-                         </div>
-                         <div>
-                              <input
-                                   type="password"
-                                   name="password"
-                                   placeholder="Nhập mật khẩu"
-                                   value={matKhau}
-                                   onChange={(e) => setMatKhau(e.target.value)}
-                              />
-                         </div>
-                         <div>
-                              <input
-                                   type="password"
-                                   name="repassword"
-                                   placeholder="Xác nhận lại mật khẩu"
-                                   value={xacNhanMatKhau}
-                                   onChange={(e) =>
-                                        setXacNhanMatKhau(e.target.value)
-                                   }
-                              />
-                         </div>
-
+               <form
+                    className="shadow p-3 bg-white rounded d-flex flex-column justify-content-center align-items-center"
+                    style={{ width: "400px" }}
+               >
+                    <input
+                         type="text"
+                         placeholder="Email or phone number"
+                         id="signin-username"
+                         className="border border-2 rounded w-100 p-2 m-2 signin-input"
+                         value={tenDangNhap}
+                         onChange={(e) => setTenDangNhap(e.target.value)}
+                    />
+                    <input
+                         type="password"
+                         placeholder="Password"
+                         id="signin-password"
+                         className="border border-2 rounded w-100 p-2 m-2 signin-input"
+                         value={matKhau}
+                         onChange={(e) => setMatKhau(e.target.value)}
+                    />
+                    <button
+                         className="border border-0 rounded w-100 p-2 text-white"
+                         id="signin-signin"
+                         onClick={handlesignin}
+                    >
+                         signin
+                    </button>
+                    <a src="#" id="signin-forget">
+                         Forgotten password ?
+                    </a>
+                    <span className="line"></span>
+                    <Link to="/signup" className="text-decoration-none">
                          <button
-                              type="submit"
-                              className="btn_create_new_account"
-                              onClick={handleSignin}
+                              className="border border-0 rounded w-100 p-2 text-white"
+                              id="signin-signup"
                          >
-                              Đăng ký
+                              Create new account
                          </button>
-
-                         <p className="sigin_describe_dn_1">
-                              Bạn đã có tài khoản?{" "}
-                              <Link to="/login" className="sigin_describe_dn_2">
-                                   <button className="btn-link">
-                                        Đăng nhập ngay
-                                   </button>
-                              </Link>
-                         </p>
-                    </div>
+                    </Link>
                </form>
           </div>
      );
 }
-
-export default Signin;
+export default signin;

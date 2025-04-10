@@ -93,7 +93,7 @@ public TaiKhoanDTO createTaiKhoan(TaiKhoanDTO taiKhoanDTO) {
      }
 
      @Override
-     public TaiKhoanDTO checkLogin(String tenDangNhap, String matKhau) {
+     public TaiKhoanDTO checksignin(String tenDangNhap, String matKhau) {
           Optional<TaiKhoanEntity> optionalTaiKhoan = taiKhoanRepository.findByTenDangNhap(tenDangNhap);
 
           if (optionalTaiKhoan.isPresent()) {
@@ -111,7 +111,7 @@ public TaiKhoanDTO createTaiKhoan(TaiKhoanDTO taiKhoanDTO) {
      }
 
      @Override
-     public String checkSignin(String tenDangNhap, String soDienThoai) {
+     public String checksignup(String tenDangNhap, String soDienThoai) {
           // Kiểm tra xem tên đăng nhập đã tồn tại chưa
           boolean isUsernameExists = taiKhoanRepository.existsByTenDangNhap(tenDangNhap);
           if (isUsernameExists) {

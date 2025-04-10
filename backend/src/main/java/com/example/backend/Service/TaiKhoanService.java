@@ -7,6 +7,6 @@ public interface TaiKhoanService {
     TaiKhoanDTO deleteTaiKhoan(int maTK);
     List<TaiKhoanDTO> getAllTaiKhoan();
     TaiKhoanDTO getTaiKhoanById(int maTK);
-    TaiKhoanDTO checkLogin(String tenDangNhap, String matKhau);  
-    String checkSignin(String tenDangNhap, String soDienThoai);
+    TaiKhoanDTO checksignin(String tenDangNhap, String matKhau);  
+    String checksignup(String tenDangNhap, String soDienThoai);
 }

@@ -28,7 +28,7 @@ public class TaiKhoanController {
 
      private TaiKhoanService taiKhoanService;
 
-     @PostMapping("/signup")
+     @PostMapping("/signin")
      public ResponseEntity<?> createTaiKhoan(@RequestBody TaiKhoanDTO taiKhoanDTO) {
           try {
                TaiKhoanDTO created = taiKhoanService.createTaiKhoan(taiKhoanDTO);
@@ -45,26 +45,26 @@ public class TaiKhoanController {
           }
      }
 
-     @PostMapping("/signin")
-     public ResponseEntity<?> signin(@RequestBody TaiKhoanDTO signinRequest) {
+     @PostMapping("/login")
+     public ResponseEntity<?> login(@RequestBody TaiKhoanDTO loginRequest) {
           Map<String, Object> response = new HashMap<>();
-          if (signinRequest.getTenDangNhap() == "" && signinRequest.getMatKhau() == "") {
+          if (loginRequest.getTenDangNhap() == "" && loginRequest.getMatKhau() == "") {
                response.put("status", "error");
                response.put("message", "Thiếu thông tin đăng nhập");
                return ResponseEntity.badRequest().body(response);
           }
-          if (signinRequest.getTenDangNhap() == "") {
+          if (loginRequest.getTenDangNhap() == "") {
                response.put("status", "error");
                response.put("message", "Vui lòng nhập tên đăng nhập");
                return ResponseEntity.badRequest().body(response);
           }
-          if (signinRequest.getMatKhau() == "") {
+          if (loginRequest.getMatKhau() == "") {
                response.put("status", "error");
                response.put("message", "Vui lòng nhập mật khẩu");
                return ResponseEntity.badRequest().body(response);
           }
-          TaiKhoanDTO taiKhoanDTO = taiKhoanService.checksignin(signinRequest.getTenDangNhap(),
-                    signinRequest.getMatKhau());
+          TaiKhoanDTO taiKhoanDTO = taiKhoanService.checkLogin(loginRequest.getTenDangNhap(),
+                    loginRequest.getMatKhau());
           if (taiKhoanDTO != null) {
                response.put("status", "success");
                response.put("message", "Đăng nhập thành công");

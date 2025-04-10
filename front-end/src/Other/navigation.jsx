@@ -4,8 +4,8 @@ export const useNavigation = () => {
   const navigate = useNavigate();
 
   return {
+    goToSignup: () => navigate("/signup"),
     goToSignin: () => navigate("/signin"),
-    goToLogin: () => navigate("/login"),
     goToProfile: () => navigate("/profile"),
   };
 };

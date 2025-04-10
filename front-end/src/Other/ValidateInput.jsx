@@ -1,4 +1,4 @@
-export const validateFormSignin = (
+export const validateFormsignup = (
      fullname,
      birthday,
      gender,

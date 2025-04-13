@@ -17,6 +17,10 @@ public class TaiKhoanEntity {
 
     @Column(name = "TenDangNhap")
     private String tenDangNhap;
+    @Column(name = "ProfilePic")
+    private String profilePic;
+    @Column(name = "CoverPic")
+    private String coverPic;
     @Column(name = "MatKhau")
     private String matKhau;
     @Column(name = "HoTen")

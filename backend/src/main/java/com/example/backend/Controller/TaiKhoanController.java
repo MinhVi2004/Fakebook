@@ -28,8 +28,8 @@ public class TaiKhoanController {
 
      private TaiKhoanService taiKhoanService;
 
-     @PostMapping("/signin")
-     public ResponseEntity<?> createTaiKhoan(@RequestBody TaiKhoanDTO taiKhoanDTO) {
+     @PostMapping("/signup")
+     public ResponseEntity<?> signup(@RequestBody TaiKhoanDTO taiKhoanDTO) {
           try {
                TaiKhoanDTO created = taiKhoanService.createTaiKhoan(taiKhoanDTO);
                Map<String, Object> response = new HashMap<>();
@@ -45,8 +45,8 @@ public class TaiKhoanController {
           }
      }
 
-     @PostMapping("/login")
-     public ResponseEntity<?> login(@RequestBody TaiKhoanDTO loginRequest) {
+     @PostMapping("/signin")
+     public ResponseEntity<?> signin(@RequestBody TaiKhoanDTO loginRequest) {
           Map<String, Object> response = new HashMap<>();
           if (loginRequest.getTenDangNhap() == "" && loginRequest.getMatKhau() == "") {
                response.put("status", "error");
@@ -63,7 +63,7 @@ public class TaiKhoanController {
                response.put("message", "Vui lòng nhập mật khẩu");
                return ResponseEntity.badRequest().body(response);
           }
-          TaiKhoanDTO taiKhoanDTO = taiKhoanService.checkLogin(loginRequest.getTenDangNhap(),
+          TaiKhoanDTO taiKhoanDTO = taiKhoanService.checkSignin(loginRequest.getTenDangNhap(),
                     loginRequest.getMatKhau());
           if (taiKhoanDTO != null) {
                response.put("status", "success");

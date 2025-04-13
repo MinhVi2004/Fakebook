@@ -7,5 +7,6 @@ export const useNavigation = () => {
     goToSignup: () => navigate("/signup"),
     goToSignin: () => navigate("/signin"),
     goToProfile: () => navigate("/profile"),
+    goToChat: () => navigate("/chat"),
   };
 };

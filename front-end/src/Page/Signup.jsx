@@ -4,10 +4,10 @@ import "react-datepicker/dist/react-datepicker.css";
 import { toast } from "react-toastify";
 import { Link } from "react-router-dom";
 
-import "./../CSS/signupCSS.css";
+import "./../CSS/Signup.css";
 import { validateFormsignup } from "../Other/ValidateInput";
 import { useNavigation } from "../Other/Navigation";
-function signup() {
+function Signup() {
      const { goToSignin } = useNavigation();
      const [hoTen, setHoTen] = useState(""); // Khai báo state cho username
      const [ngaySinh, setNgaySinh] = useState(null);
@@ -191,4 +191,4 @@ function signup() {
      );
 }
 
-export default signup;
+export default Signup;

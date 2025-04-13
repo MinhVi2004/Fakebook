@@ -1,8 +1,6 @@
 package com.example.backend.Service;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -23,30 +21,29 @@ public class TaiKhoanServiceImple implements TaiKhoanService {
      private TaiKhoanRepository taiKhoanRepository;
 
      @Override
-public TaiKhoanDTO createTaiKhoan(TaiKhoanDTO taiKhoanDTO) {
-    // Kiểm tra trùng tên đăng nhập
-    if (taiKhoanRepository.existsByTenDangNhap(taiKhoanDTO.getTenDangNhap())) {
-        throw new RuntimeException("Tên đăng nhập đã tồn tại");
-    }
+     public TaiKhoanDTO createTaiKhoan(TaiKhoanDTO taiKhoanDTO) {
+          // Kiểm tra trùng tên đăng nhập
+          if (taiKhoanRepository.existsByTenDangNhap(taiKhoanDTO.getTenDangNhap())) {
+               throw new RuntimeException("Tên đăng nhập đã tồn tại");
+          }
 
-    // Kiểm tra trùng số điện thoại
-    if (taiKhoanRepository.existsBySoDienThoai(taiKhoanDTO.getSoDienThoai())) {
-        throw new RuntimeException("Số điện thoại đã được sử dụng");
-    }
+          // Kiểm tra trùng số điện thoại
+          if (taiKhoanRepository.existsBySoDienThoai(taiKhoanDTO.getSoDienThoai())) {
+               throw new RuntimeException("Số điện thoại đã được sử dụng");
+          }
 
-    // Gán các giá trị mặc định
-    taiKhoanDTO.setNgayTao(LocalDateTime.now().toString());
-    taiKhoanDTO.setTrangThai("Bình Thường");
-    taiKhoanDTO.setPhanQuyen("Người Dùng");
+          // Gán các giá trị mặc định
+          taiKhoanDTO.setNgayTao(LocalDateTime.now().toString());
+          taiKhoanDTO.setTrangThai("Bình Thường");
+          taiKhoanDTO.setPhanQuyen("Người Dùng");
 
-    // Chuyển DTO → Entity và lưu
-    TaiKhoanEntity taiKhoanEntity = TaiKhoanMapper.mapToTaiKhoanEntity(taiKhoanDTO);
-    TaiKhoanEntity savedTaiKhoanEntity = taiKhoanRepository.save(taiKhoanEntity);
+          // Chuyển DTO → Entity và lưu
+          TaiKhoanEntity taiKhoanEntity = TaiKhoanMapper.mapToTaiKhoanEntity(taiKhoanDTO);
+          TaiKhoanEntity savedTaiKhoanEntity = taiKhoanRepository.save(taiKhoanEntity);
 
-    // Trả lại DTO
-    return TaiKhoanMapper.mapToTaiKhoanDTO(savedTaiKhoanEntity);
-}
-
+          // Trả lại DTO
+          return TaiKhoanMapper.mapToTaiKhoanDTO(savedTaiKhoanEntity);
+     }
 
      @Override
      public TaiKhoanDTO updateTaiKhoan(TaiKhoanDTO taiKhoanDTO) {
@@ -55,6 +52,8 @@ public TaiKhoanDTO createTaiKhoan(TaiKhoanDTO taiKhoanDTO) {
                TaiKhoanEntity existingTaiKhoan = optionalTaiKhoan.get();
                existingTaiKhoan.setTenDangNhap(taiKhoanDTO.getTenDangNhap());
                existingTaiKhoan.setMatKhau(taiKhoanDTO.getMatKhau());
+               existingTaiKhoan.setProfilePic(taiKhoanDTO.getProfilePic());
+               existingTaiKhoan.setCoverPic(taiKhoanDTO.getCoverPic());
                existingTaiKhoan.setHoTen(taiKhoanDTO.getHoTen());
                existingTaiKhoan.setGioiTinh(taiKhoanDTO.getGioiTinh());
                existingTaiKhoan.setSoDienThoai(taiKhoanDTO.getSoDienThoai());
@@ -93,7 +92,7 @@ public TaiKhoanDTO createTaiKhoan(TaiKhoanDTO taiKhoanDTO) {
      }
 
      @Override
-     public TaiKhoanDTO checkLogin(String tenDangNhap, String matKhau) {
+     public TaiKhoanDTO checkSignin(String tenDangNhap, String matKhau) {
           Optional<TaiKhoanEntity> optionalTaiKhoan = taiKhoanRepository.findByTenDangNhap(tenDangNhap);
 
           if (optionalTaiKhoan.isPresent()) {
@@ -111,7 +110,7 @@ public TaiKhoanDTO createTaiKhoan(TaiKhoanDTO taiKhoanDTO) {
      }
 
      @Override
-     public String checkSignin(String tenDangNhap, String soDienThoai) {
+     public String checkSignup(String tenDangNhap, String soDienThoai) {
           // Kiểm tra xem tên đăng nhập đã tồn tại chưa
           boolean isUsernameExists = taiKhoanRepository.existsByTenDangNhap(tenDangNhap);
           if (isUsernameExists) {

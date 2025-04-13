@@ -9,6 +9,8 @@ public class TaiKhoanMapper {
         taiKhoanDTO.setMaTK(taiKhoanEntity.getMaTK());
         taiKhoanDTO.setTenDangNhap(taiKhoanEntity.getTenDangNhap());
         taiKhoanDTO.setMatKhau(taiKhoanEntity.getMatKhau());
+        taiKhoanDTO.setProfilePic(taiKhoanEntity.getProfilePic());
+          taiKhoanDTO.setCoverPic(taiKhoanEntity.getCoverPic());
         taiKhoanDTO.setHoTen(taiKhoanEntity.getHoTen());
         taiKhoanDTO.setGioiTinh(taiKhoanEntity.getGioiTinh());
         taiKhoanDTO.setSoDienThoai(taiKhoanEntity.getSoDienThoai());
@@ -24,6 +26,8 @@ public class TaiKhoanMapper {
         taiKhoanEntity.setMaTK(taiKhoanDTO.getMaTK());
         taiKhoanEntity.setTenDangNhap(taiKhoanDTO.getTenDangNhap());
         taiKhoanEntity.setMatKhau(taiKhoanDTO.getMatKhau());
+            taiKhoanEntity.setProfilePic(taiKhoanDTO.getProfilePic());
+            taiKhoanEntity.setCoverPic(taiKhoanDTO.getCoverPic());
         taiKhoanEntity.setHoTen(taiKhoanDTO.getHoTen());
         taiKhoanEntity.setGioiTinh(taiKhoanDTO.getGioiTinh());
         taiKhoanEntity.setSoDienThoai(taiKhoanDTO.getSoDienThoai());

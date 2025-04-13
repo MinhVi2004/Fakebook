@@ -2,10 +2,11 @@ import React, { useState } from "react";
 import { toast } from "react-toastify";
 import { Link } from "react-router-dom";
 
-import "./../CSS/SigninCSS.css";
+import "./../CSS/Signin.css";
 import { useNavigation } from "../Other/Navigation"; // Import useNavigation từ file navigation.js
-function signin() {
-     const { goToSignup } = useNavigation();
+function Signin() {
+     sessionStorage.removeItem("userSignin"); // Xóa thông tin người dùng trong sessionStorage khi vào trang đăng nhập
+     const { goToSignup, goToProfile } = useNavigation();
      const [tenDangNhap, setTenDangNhap] = useState(""); // Khai báo state cho username
      const [matKhau, setMatKhau] = useState(""); // Khai báo state cho password
      async function handlesignin(e) {
@@ -24,8 +25,12 @@ function signin() {
 
           const data = await response.json();
           if (response.ok) {
-               toast.success(`Xin chào ${data.data.hoTen}`);
-               localStorage.setItem("token", data.token);
+               const userData = data.data;
+               sessionStorage.setItem('userSignin', JSON.stringify(userData));
+               toast.success("Đăng nhập thành công");
+
+               // Chuyển hướng đến trang profile
+               goToProfile(); 
           } else {
                toast.error(data.message || "Đăng nhập thất bại");
           }
@@ -82,4 +87,4 @@ function signin() {
           </div>
      );
 }
-export default signin;
+export default Signin;

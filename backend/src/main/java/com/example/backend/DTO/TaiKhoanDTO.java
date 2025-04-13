@@ -11,6 +11,8 @@ public class TaiKhoanDTO {
     private int MaTK;
     private String TenDangNhap;
     private String MatKhau;
+    private String ProfilePic;
+    private String CoverPic;
     private String HoTen;
     private String GioiTinh;
     private String SoDienThoai;

@@ -11,15 +11,20 @@ export default function Profile() {
      // Check if user is not signed in, and navigate using useEffect
      useEffect(() => {
        if (!storedUserData) {
-         toast.error("Bạn chưa đăng nhập");
+         toast.error("Bạn chưa đăng nhập, vui lòng đăng nhập để tiếp tục");
          goToSignin(); // Chuyển hướng đến trang đăng nhập nếu không có thông tin người dùng
        }
      }, [storedUserData, goToSignin]);
    
      // Trạng thái cho thông tin người dùng
      const [userName, setUserName] = useState(storedUserData?.hoTen || "");
-     const [profilePic, setProfilePic] = useState(storedUserData?.Avatar || "");
-     const [coverPic, setCoverPic] = useState(storedUserData?.coverPic || "");
+     const [profilePic, setProfilePic] = useState(
+          storedUserData?.profilePic ? `Resource/Avatar/${storedUserData.profilePic}` : ""
+        );
+     const [coverPic, setCoverPic] = useState(
+          storedUserData?.coverPic ? `Resource/Avatar/${storedUserData.coverPic}` : ""
+        );
+        
      const [isEditFormOpen, setIsEditFormOpen] = useState(false);
    
      // Xử lý mở/đóng form chỉnh sửa

@@ -66,10 +66,16 @@ public class TaiKhoanController {
           TaiKhoanDTO taiKhoanDTO = taiKhoanService.checkSignin(loginRequest.getTenDangNhap(),
                     loginRequest.getMatKhau());
           if (taiKhoanDTO != null) {
-               response.put("status", "success");
-               response.put("message", "Đăng nhập thành công");
-               response.put("data", taiKhoanDTO);
-               return ResponseEntity.ok(response);
+               if(taiKhoanDTO.getTrangThai().equals("Vô Hiệu Hóa")) {
+                    response.put("status", "error");
+                    response.put("message", "Tài khoản của bạn đã bị vô hiệu hóa");
+                    return ResponseEntity.badRequest().body(response);
+               } else {
+                    response.put("status", "success");
+                    response.put("message", "Đăng nhập thành công");
+                    response.put("data", taiKhoanDTO);
+                    return ResponseEntity.ok(response);
+               }
           } else {
                response.put("status", "error");
                response.put("message", "Sai tài khoản hoặc mật khẩu");

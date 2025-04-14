@@ -16,6 +16,7 @@ public class TaiKhoanDTO {
     private String HoTen;
     private String GioiTinh;
     private String SoDienThoai;
+    private String Email;
     private String NgaySinh;
     private String NgayTao;
     private String TrangThai;

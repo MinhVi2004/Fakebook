@@ -33,6 +33,8 @@ public class TaiKhoanServiceImple implements TaiKhoanService {
           }
 
           // Gán các giá trị mặc định
+          taiKhoanDTO.setProfilePic("default.png");
+          taiKhoanDTO.setCoverPic("default.png");
           taiKhoanDTO.setNgayTao(LocalDateTime.now().toString());
           taiKhoanDTO.setTrangThai("Bình Thường");
           taiKhoanDTO.setPhanQuyen("Người Dùng");
@@ -68,18 +70,38 @@ public class TaiKhoanServiceImple implements TaiKhoanService {
      }
 
      @Override
-     public TaiKhoanDTO deleteTaiKhoan(int maTK) {
+     public TaiKhoanDTO disableTaiKhoan(int maTK) {
           Optional<TaiKhoanEntity> optionalTaiKhoan = taiKhoanRepository.findById(maTK);
           if (optionalTaiKhoan.isPresent()) {
-               taiKhoanRepository.deleteById(maTK);
-               return TaiKhoanMapper.mapToTaiKhoanDTO(optionalTaiKhoan.get());
+               TaiKhoanEntity taiKhoan = optionalTaiKhoan.get();
+               taiKhoan.setTrangThai("Vô Hiệu Hóa"); // Đánh dấu là đã xóa
+               taiKhoanRepository.save(taiKhoan); // Lưu lại thay đổi
+               return TaiKhoanMapper.mapToTaiKhoanDTO(taiKhoan);
+          }
+          return null;
+     }    
+     @Override
+     public TaiKhoanDTO enableTaiKhoan(int maTK) {
+          Optional<TaiKhoanEntity> optionalTaiKhoan = taiKhoanRepository.findById(maTK);
+          if (optionalTaiKhoan.isPresent()) {
+               TaiKhoanEntity taiKhoan = optionalTaiKhoan.get();
+               taiKhoan.setTrangThai("Bình Thường"); // Đánh dấu là đã xóa
+               taiKhoanRepository.save(taiKhoan); // Lưu lại thay đổi
+               return TaiKhoanMapper.mapToTaiKhoanDTO(taiKhoan);
           }
           return null;
      }
-
      @Override
      public List<TaiKhoanDTO> getAllTaiKhoan() {
           List<TaiKhoanEntity> entities = taiKhoanRepository.findAll();
+          return entities.stream()
+                    .map(TaiKhoanMapper::mapToTaiKhoanDTO)
+                    .collect(Collectors.toList());
+     }
+
+     @Override
+     public List<TaiKhoanDTO> getAllTaiKhoanByTrangThai(String trangThai) {
+          List<TaiKhoanEntity> entities = taiKhoanRepository.findByTrangThai(trangThai);
           return entities.stream()
                     .map(TaiKhoanMapper::mapToTaiKhoanDTO)
                     .collect(Collectors.toList());

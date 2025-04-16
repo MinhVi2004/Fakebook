@@ -29,6 +29,8 @@ public class TaiKhoanEntity {
     private String gioiTinh;
     @Column(name = "SoDienThoai")
     private String soDienThoai;
+    @Column(name = "Email")
+    private String email;
     @Column(name = "NgaySinh")
     private String ngaySinh;
     @Column(name = "NgayTao")

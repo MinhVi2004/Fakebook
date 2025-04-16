@@ -1,23 +1,32 @@
 import React from "react";
 import { BrowserRouter as Router, Routes, Route, Link, useLocation  } from "react-router-dom";
+import { ToastContainer } from "react-toastify";
+import { toast } from "react-toastify";
 import Signin from "./Page/Signin";
 import Signup from "./Page/Signup";
 import Profile from "./Page/Profile";
-import { ToastContainer } from "react-toastify";
 import TopBar from "./Page/TopBar";
+import Admin from "./Page/Admin";
+import UserManager from "./Page/UserManager";
+// import PostManager from "./Page/PostManager";
 
 const AppContent = () => {
      const location = useLocation();
-     const hideTopBar = location.pathname === "/signin" || location.pathname === "/signup";
+     const hideTopBar = location.pathname === "/signin" || location.pathname === "/signup" || location.pathname === "/";
    
      return (
        <>
          {!hideTopBar && <TopBar />}
          <Routes>
-           <Route path="/fakebook/" element={<Signin />} />
-           <Route path="/fakebook/signin" element={<Signin />} />
-           <Route path="/fakebook/signup" element={<Signup />} />
-           <Route path="/fakebook/profile" element={<Profile />} />
+          <Route path="/" element={<Signin />} />
+          <Route path="/signin" element={<Signin />} />
+          <Route path="/signup" element={<Signup />} />
+          <Route path="/profile" element={<Profile />} />
+          <Route path="/admin" element={<Admin />}> 
+               <Route path="" element={<UserManager />} />
+               <Route path="users" element={<UserManager />} />
+               {/* <Route path="posts" element={<PostManager />} /> */}
+          </Route>
          </Routes>
        </>
      );
